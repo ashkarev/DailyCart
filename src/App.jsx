@@ -11,7 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/singlepage" element={<SinglePage />} />
+        <Route path="/:id/singlePage" element={<SinglePage />} />
       </Routes>
     </>
   );
