@@ -3,10 +3,16 @@ import { IoBagHandle } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { searchByTitle } from "../Redux/Slices/ProductSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import WishList from "../pages/WishList";
+
 
 const Header = () => {
   const dispatch=useDispatch()
+  const {WishListData}=useSelector((state)=>state.wishListReducer)
+
+  const{CartData}=useSelector((state)=>state.cartReducer)
 
   return (
     <div className="bg-blue-900 text-white p-4 font-bold flex justify-between">
@@ -23,12 +29,14 @@ const Header = () => {
           placeholder="Search Products Here"
           onChange={(e)=>dispatch(searchByTitle(e.target.value))}
         />
-        <div className="flex gap-1 items-center">
-          <FaClipboardList className="text-red-700" /> WishList <div className="bg-black p-1 rounded-2xl ">0</div>
-        </div>
-        <div className="flex gap-1 items-center">
-          <FaCartShopping className="text-green-600" /> Cart <div className="bg-black p-1 rounded-2xl ">0</div>
-        </div>
+        <Link to={'/wishlist'} className="flex gap-1 items-center">
+          <FaClipboardList className="text-red-700" /> WishList <div className="bg-black p-1 rounded-2xl ">{
+            WishListData.length}</div>
+        </Link>
+        <Link to={'/cart'} className="flex gap-1 items-center">
+          <FaCartShopping className="text-green-600" /> Cart <div className="bg-black p-1 rounded-2xl ">{
+CartData.length}</div>
+        </Link>
       </div>
     </div>
   );
